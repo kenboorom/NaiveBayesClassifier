@@ -18,7 +18,7 @@ namespace MachineLearningExample1
             TraceMessages.SetTrace(this.statusBox);
         }
 
-        WaveformClassifier w = new WaveformClassifier(2);
+        WaveformClassifier w = new WaveformClassifier(2, GeneratedOutputWaveformGivenParametrics.numberSymbols);
 
         private void TrainButton_Click(object sender, EventArgs e)
         {
@@ -33,7 +33,7 @@ namespace MachineLearningExample1
                 GeneratedOutputWaveformGivenParametrics g =
                     new GeneratedOutputWaveformGivenParametrics(0);
 
-                w.TrainNewWaveform(g.outputWaveformInMillivolts, 0);
+                w.TrainNewWaveform(g, 0);
 
                 // Plot last wavefrom
                 if (n == 299)
@@ -50,7 +50,7 @@ namespace MachineLearningExample1
                 GeneratedOutputWaveformGivenParametrics g =
                     new GeneratedOutputWaveformGivenParametrics((int)theSkew);
 
-                w.TrainNewWaveform(g.outputWaveformInMillivolts, 1);
+                w.TrainNewWaveform(g, 1);
             }
 
             // Create objects with classification 2 (clock too late) and train
@@ -60,7 +60,7 @@ namespace MachineLearningExample1
                 GeneratedOutputWaveformGivenParametrics g =
                     new GeneratedOutputWaveformGivenParametrics((int)theSkew);
 
-                w.TrainNewWaveform(g.outputWaveformInMillivolts, 2);
+                w.TrainNewWaveform(g, 2);
 
             }
 
@@ -70,6 +70,23 @@ namespace MachineLearningExample1
             statusBox.AppendText($"{currentTime} Done!\r\n");
             statusBox.SelectionStart = statusBox.TextLength;
             statusBox.ScrollToCaret();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void AnalyzeButton_Click(object sender, EventArgs e)
+        {
+            w.ShowHistogram(0);
+            w.ShowHistogram(1);
+            w.ShowHistogram(2);
+        }
+
+        private void plotSampledWaveform_Click(object sender, EventArgs e)
+        {
 
         }
     }

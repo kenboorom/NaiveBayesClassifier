@@ -32,7 +32,6 @@ namespace MachineLearningExample1
 
         }
     }
- 
 
 
     public class GeneratedOutputWaveformGivenParametrics
@@ -43,10 +42,11 @@ namespace MachineLearningExample1
         public int[] outputWaveformInMillivolts;
 
         // 10-symbol waveform
+        public const int numberSymbols = 10;
         private int[] inputSymbolSequence = { 0, 0, 0, 1, 1, 1, 0, 0, 1, 0};
+
         const int PICOSECONDS_PER_SYMBOL = 100;
         const int NOMINAL_DELAY_TIME_IN_PICOSECONDS = 20;
-
 
         // =========================== ONE SAMPLE IS ALWAYS ONE PICOSECONDS ================
 
@@ -116,8 +116,12 @@ namespace MachineLearningExample1
         public void PlotWaveform(Chart targetChart)
         {
             targetChart.Series.Clear();
+
+            // Add waveform and set chart type
             Series s = targetChart.Series.Add("Waveform");
             s.BorderWidth = 5;
+            s.ChartType = SeriesChartType.Line;
+
             targetChart.ChartAreas[0].AxisY.Maximum = 1500;
 
             targetChart.ChartAreas[0].AxisX.LabelStyle.Format = "##.##";
@@ -132,11 +136,24 @@ namespace MachineLearningExample1
                 int yval = outputWaveformInMillivolts[i];
 
                 s.Points.AddXY(xval, yval);
-                TraceMessages.AddMessage($"Plotted {xval}, {yval}");
-
+                //TraceMessages.AddMessage($"Plotted {xval}, {yval}");
              }
         }
 
+        public int ConvertWaveformToInt()
+        {
+            int rtn = 0;
+            for (int sampleNumber = 0; sampleNumber <= inputSymbolSequence.Length - 1; sampleNumber++)
+            {
+                int sampleTime = sampleNumber * PICOSECONDS_PER_SYMBOL + NOMINAL_DELAY_TIME_IN_PICOSECONDS;
+                sampleTime += 1;
+                if (outputWaveformInMillivolts[sampleTime] == 0)
+                    rtn = rtn << 2;
+                else
+                    rtn = (rtn << 1) | 1;
+            }
+            return rtn;
+        }
 
     }
 }
