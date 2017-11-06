@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MachineLearningExample1")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ON Semiconductor")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MachineLearningExample1")]
-[assembly: AssemblyCopyright("Copyright © ON Semiconductor 2017")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

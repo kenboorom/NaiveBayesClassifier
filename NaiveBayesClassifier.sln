@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningExample1", "MachineLearningExample1\MachineLearningExample1.csproj", "{807527F5-C0FF-4744-8D3E-F12D9796D67A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveBayesClassifier", "NaiveBayesClassifier\NaiveBayesClassifier.csproj", "{807527F5-C0FF-4744-8D3E-F12D9796D67A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {644E2D1C-289A-49C0-B19F-9E006B09D4D9}
 	EndGlobalSection
 EndGlobal

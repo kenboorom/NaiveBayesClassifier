@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneratedOutputWaveformGivenParametrics.cs" />
+    <Compile Include="NaiveBayesMutinomal.cs" />
+    <Compile Include="Waveform.cs" />
     <Compile Include="MachineLearningExampleMainForm.cs">
       <SubType>Form</SubType>
     </Compile>

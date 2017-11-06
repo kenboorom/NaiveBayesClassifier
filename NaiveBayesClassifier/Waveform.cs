@@ -15,11 +15,17 @@ namespace MachineLearningExample1
         // This returns a positive number with a standard deviation (sigma) of the number passed.
         // i.e. This returns a right-half normal distributino
 
+        static Random rand;
+
+        static Gaussian()
+        {
+            rand = new Random();
+        }
+
         public static int GetRandom (int oneSigmaValue)
         {
             double doubleOneSigmaValue = oneSigmaValue;
 
-            Random rand = new Random(); //reuse this if you are generating many
             double u1 = 1.0 - rand.NextDouble(); //uniform(0,1] random doubles
             double u2 = 1.0 - rand.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
@@ -34,7 +40,7 @@ namespace MachineLearningExample1
     }
 
 
-    public class GeneratedOutputWaveformGivenParametrics
+    public class Waveform
     {
         public int flopClockSkewStandardDeviation;
         public int flopClockSkewInPicoseconds;
@@ -48,12 +54,24 @@ namespace MachineLearningExample1
         const int PICOSECONDS_PER_SYMBOL = 100;
         const int NOMINAL_DELAY_TIME_IN_PICOSECONDS = 20;
 
+        int waveformsSummed = 0;
+
         // =========================== ONE SAMPLE IS ALWAYS ONE PICOSECONDS ================
 
-        public GeneratedOutputWaveformGivenParametrics(int oneSigmaClockSkew)
+
+        // Constructor #1 - just make a plain old waveform (for summation)
+        public Waveform()
+        {
+            outputWaveformInMillivolts = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
+        }
+
+        // Constructur #2 - Make a waveform and load it with sampled data with random clock skew problem
+        public Waveform(int oneSigmaClockSkew)
         {
             int absSigmaSkew = Math.Abs(oneSigmaClockSkew);
             int sgnSigmaSkew = Math.Sign(oneSigmaClockSkew);
+
+            outputWaveformInMillivolts = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
 
             flopClockSkewInPicoseconds = oneSigmaClockSkew;
 
@@ -61,8 +79,6 @@ namespace MachineLearningExample1
             // Each sample is 1 psec
             // Pad below by full clock cycle in case we sample past end of period
             int[] sourceWaveform = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
-
-            outputWaveformInMillivolts = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
 
             // Generate input waveform - TODO - make this static
             int destinationLocation = 0;
@@ -84,6 +100,8 @@ namespace MachineLearningExample1
             {
                 // Each sample is 1 psec
                 int randomSkewForThisSample = Gaussian.GetRandom(absSigmaSkew) * sgnSigmaSkew;
+                //TraceMessages.AddMessage($"For clock {clockCycle} skew is {randomSkewForThisSample}");
+
                 int thisEdge = NOMINAL_DELAY_TIME_IN_PICOSECONDS + clockCycle * PICOSECONDS_PER_SYMBOL + randomSkewForThisSample;
                 activeEdges[clockCycle] = thisEdge;
             }
@@ -113,17 +131,26 @@ namespace MachineLearningExample1
             }
         }
 
-        public void PlotWaveform(Chart targetChart)
+        public void ClearThenPlotWaveform(Chart targetChart)
+        {
+            string theName = targetChart.Legends[0].Name;
+            targetChart.Series.Clear();
+            PlotWaveform(targetChart, theName, 0);
+        }
+
+        public void ClearPlot(Chart targetChart)
         {
             targetChart.Series.Clear();
+        }
 
+        public void PlotWaveform(Chart targetChart, string theName, int offset)
+        {
             // Add waveform and set chart type
-            Series s = targetChart.Series.Add("Waveform");
-            s.BorderWidth = 5;
+            Series s = targetChart.Series.Add(theName);
+            s.BorderWidth = 1;
             s.ChartType = SeriesChartType.Line;
 
             targetChart.ChartAreas[0].AxisY.Maximum = 1500;
-
             targetChart.ChartAreas[0].AxisX.LabelStyle.Format = "##.##";
             targetChart.ChartAreas[0].AxisX.Title = "psec";
             targetChart.ChartAreas[0].AxisX.Minimum = 0;
@@ -135,12 +162,22 @@ namespace MachineLearningExample1
                 int xval = i;
                 int yval = outputWaveformInMillivolts[i];
 
-                s.Points.AddXY(xval, yval);
+                s.Points.AddXY(xval, yval+offset);
                 //TraceMessages.AddMessage($"Plotted {xval}, {yval}");
              }
         }
 
-        public int ConvertWaveformToInt()
+        public int GetOneSample(int sampleNumber)
+        {
+            int sampleTime = sampleNumber * PICOSECONDS_PER_SYMBOL + NOMINAL_DELAY_TIME_IN_PICOSECONDS;
+            sampleTime += 1;
+            if (outputWaveformInMillivolts[sampleTime] == 0)
+                return 0;
+            else
+                return 1;
+        }
+
+        public int SampleAndReturnAsInt()
         {
             int rtn = 0;
             for (int sampleNumber = 0; sampleNumber <= inputSymbolSequence.Length - 1; sampleNumber++)
@@ -153,6 +190,58 @@ namespace MachineLearningExample1
                     rtn = (rtn << 1) | 1;
             }
             return rtn;
+        }
+
+        public string SampleAndReturnAsString()
+        {
+            string rtn = "";
+            for (int sampleNumber = 0; sampleNumber <= inputSymbolSequence.Length - 1; sampleNumber++)
+            {
+                int sampleTime = sampleNumber * PICOSECONDS_PER_SYMBOL + NOMINAL_DELAY_TIME_IN_PICOSECONDS;
+                sampleTime += 1;
+                if (outputWaveformInMillivolts[sampleTime] == 0)
+                    rtn = rtn + "0";
+                else
+                    rtn = rtn + "1";
+            }
+            return rtn;
+
+        }
+
+        public string SampleAndReturnAsStringWithCommas()
+        {
+            string rtn = "";
+            for (int sampleNumber = 0; sampleNumber <= inputSymbolSequence.Length - 1; sampleNumber++)
+            {
+                int sampleTime = sampleNumber * PICOSECONDS_PER_SYMBOL + NOMINAL_DELAY_TIME_IN_PICOSECONDS;
+                sampleTime += 1;
+                if (outputWaveformInMillivolts[sampleTime] == 0)
+                    rtn = rtn + "0,";
+                else
+                    rtn = rtn + "1,";
+            }
+            return rtn.Substring(0, rtn.Length - 1);
+
+        }
+
+        public void AddWaveformToSummationForVisualization(Chart targetChart, Waveform genWave2, int count)
+        {
+            waveformsSummed++;
+
+            for (int i = 0; i < outputWaveformInMillivolts.Length; i++)
+                outputWaveformInMillivolts[i] += genWave2.outputWaveformInMillivolts[i];
+
+            string theName = targetChart.Legends[0].Name;
+            targetChart.Series.Clear();
+            PlotWaveform(targetChart, theName, count*10);
+
+        }
+
+        public void PlotAveragedWaveform(Chart targetChart)
+        {
+            //for (int i = 0; i < outputWaveformInMillivolts.Length; i++)
+            //    outputWaveformInMillivolts[i] /= waveformsSummed;
+            //this.ClearThenPlotWaveform(targetChart);
         }
 
     }
