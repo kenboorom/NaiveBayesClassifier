@@ -28,7 +28,7 @@ namespace MachineLearningExample1
                 learnedHistograms[i] = new int[1 << maxBits];
         }
 
-        public void AddNewWaveform(Waveform genWave, int classifier)
+        public void AddNewWaveform(VoltageWaveformAfterRegister genWave, int classifier)
         {
             int n = genWave.SampleAndReturnAsInt();
             if (n > 1023) n = 1023;
@@ -61,7 +61,7 @@ namespace MachineLearningExample1
         }
 
 
-        public void AddWaveformForAnalysis(Waveform genWave)
+        public void AddWaveformForAnalysis(VoltageWaveformAfterRegister genWave)
         {
             int n = genWave.SampleAndReturnAsInt();
             histogramToClassify[n]++; 
@@ -101,7 +101,7 @@ namespace MachineLearningExample1
             {
                 int h = histogramToShow[n];
                 if (h != 0)
-                    allText = allText + "Pattern " + Convert.ToString(n, 2).PadLeft(10, '0') + $" occurs {h} times" + "\n\r";
+                    allText = allText + "Pattern " + Convert.ToString(n, 2).PadLeft(10, '0') + $"[{n}]" + $" occurs {h} times" + "\n\r";
             }
             targetText.AppendText($"{allText}\r\n");
         }
@@ -114,7 +114,7 @@ namespace MachineLearningExample1
 
             // Add waveform and set chart type
             Series s = targetChart.Series.Add(plotName);
-            s.BorderWidth = 1;
+            s.BorderWidth = 4;
             s.ChartType = SeriesChartType.Line;
 
             targetChart.ChartAreas[0].AxisY.Maximum = 300;

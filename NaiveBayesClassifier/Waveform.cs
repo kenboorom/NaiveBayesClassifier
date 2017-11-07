@@ -40,7 +40,7 @@ namespace MachineLearningExample1
     }
 
 
-    public class Waveform
+    public class VoltageWaveformAfterRegister
     {
         public int flopClockSkewStandardDeviation;
         public int flopClockSkewInPicoseconds;
@@ -55,18 +55,33 @@ namespace MachineLearningExample1
         const int NOMINAL_DELAY_TIME_IN_PICOSECONDS = 20;
 
         int waveformsSummed = 0;
+        private int[] sourceWaveformInMillivolts;
+
+        private void InitializeSourceWaveform()
+        {
+            int destinationLocation = 0;
+            // Generate output waveform.  Run through 10 clock cycles
+
+            // Use 1000 samples per symbol.  Assume 1 Ghz transmission clock, each symbol = 1000 ps
+            // Each sample is 1 psec
+            // Pad below by full clock cycle in case we sample past end of period
+            sourceWaveformInMillivolts = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
+
+            // Generate input waveform - TODO - Make this static
+            foreach (int theSymbol in inputSymbolSequence)
+                for (int sampleNumber = 0; sampleNumber <= PICOSECONDS_PER_SYMBOL - 1; sampleNumber++)
+                    sourceWaveformInMillivolts[destinationLocation++] = theSymbol * 1000;           // Convert symbol to mV
+        }
 
         // =========================== ONE SAMPLE IS ALWAYS ONE PICOSECONDS ================
 
-
-        // Constructor #1 - just make a plain old waveform (for summation)
-        public Waveform()
+        // Constructor #1 - just make a plain old waveform (for nominal case)
+        public VoltageWaveformAfterRegister() : this(0)
         {
-            outputWaveformInMillivolts = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
         }
 
-        // Constructur #2 - Make a waveform and load it with sampled data with random clock skew problem
-        public Waveform(int oneSigmaClockSkew)
+        // Constructor #2 - Make a waveform and load it with sampled data with random clock skew problem
+        public VoltageWaveformAfterRegister(int oneSigmaClockSkew)
         {
             int absSigmaSkew = Math.Abs(oneSigmaClockSkew);
             int sgnSigmaSkew = Math.Sign(oneSigmaClockSkew);
@@ -75,19 +90,7 @@ namespace MachineLearningExample1
 
             flopClockSkewInPicoseconds = oneSigmaClockSkew;
 
-            // Use 1000 samples per symbol.  Assume 1 Ghz transmission clock, each symbol = 1000 ps
-            // Each sample is 1 psec
-            // Pad below by full clock cycle in case we sample past end of period
-            int[] sourceWaveform = new int[inputSymbolSequence.Length * PICOSECONDS_PER_SYMBOL];
-
-            // Generate input waveform - TODO - make this static
-            int destinationLocation = 0;
-            foreach (int theSymbol in inputSymbolSequence)
-               for (int sampleNumber=0; sampleNumber <=PICOSECONDS_PER_SYMBOL-1; sampleNumber++)
-                    sourceWaveform[destinationLocation++] = theSymbol * 1000;
-
-            // Generate output waveform.  Run through 10 clock cycles
-            destinationLocation = 0;
+            InitializeSourceWaveform();
 
             // We need to produce the output from a sampling flop.  So we will emulate a flop
             // that is sampling based on a clock.  We do this by cycling through the time steps
@@ -98,8 +101,12 @@ namespace MachineLearningExample1
 
             for (int clockCycle = 0; clockCycle <= inputSymbolSequence.Length - 1; clockCycle++)
             {
+                int randomSkewForThisSample;
                 // Each sample is 1 psec
-                int randomSkewForThisSample = Gaussian.GetRandom(absSigmaSkew) * sgnSigmaSkew;
+                if (absSigmaSkew == 0)
+                    randomSkewForThisSample = 0;
+                else
+                    randomSkewForThisSample = Gaussian.GetRandom(absSigmaSkew) * sgnSigmaSkew;
                 //TraceMessages.AddMessage($"For clock {clockCycle} skew is {randomSkewForThisSample}");
 
                 int thisEdge = NOMINAL_DELAY_TIME_IN_PICOSECONDS + clockCycle * PICOSECONDS_PER_SYMBOL + randomSkewForThisSample;
@@ -108,7 +115,6 @@ namespace MachineLearningExample1
 
             // Now, march through all the time steps emulating a flop and sample at appropriate
             // times
-
             int currentClockIndex = 0;
             int nextSamplingTimeInPicoseconds = activeEdges[currentClockIndex];
             int currentSample = 0;
@@ -117,7 +123,7 @@ namespace MachineLearningExample1
                 outputWaveformInMillivolts[timeInPicoSeconds] = currentSample;
                 if (timeInPicoSeconds >= nextSamplingTimeInPicoseconds)
                 {
-                    currentSample = sourceWaveform[timeInPicoSeconds];
+                    currentSample = sourceWaveformInMillivolts[timeInPicoSeconds];
                     // Advance the pointer to the next clock.  If no more clocks, put the nexxt
                     // sampling time at a high number so it becomes inactive.
                     if (currentClockIndex < activeEdges.Length-1)
@@ -147,7 +153,7 @@ namespace MachineLearningExample1
         {
             // Add waveform and set chart type
             Series s = targetChart.Series.Add(theName);
-            s.BorderWidth = 1;
+            s.BorderWidth = 3;
             s.ChartType = SeriesChartType.Line;
 
             targetChart.ChartAreas[0].AxisY.Maximum = 1500;
@@ -180,14 +186,16 @@ namespace MachineLearningExample1
         public int SampleAndReturnAsInt()
         {
             int rtn = 0;
+            int oneBit;
             for (int sampleNumber = 0; sampleNumber <= inputSymbolSequence.Length - 1; sampleNumber++)
             {
                 int sampleTime = sampleNumber * PICOSECONDS_PER_SYMBOL + NOMINAL_DELAY_TIME_IN_PICOSECONDS;
                 sampleTime += 1;
                 if (outputWaveformInMillivolts[sampleTime] == 0)
-                    rtn = rtn << 2;
+                    oneBit = 0;
                 else
-                    rtn = (rtn << 1) | 1;
+                    oneBit = 1;
+                rtn = (rtn << 1) | oneBit;
             }
             return rtn;
         }
@@ -224,7 +232,7 @@ namespace MachineLearningExample1
 
         }
 
-        public void AddWaveformToSummationForVisualization(Chart targetChart, Waveform genWave2, int count)
+        public void AddWaveformToSummationForVisualization(Chart targetChart, VoltageWaveformAfterRegister genWave2, int count)
         {
             waveformsSummed++;
 

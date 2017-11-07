@@ -17,10 +17,10 @@ namespace MachineLearningExample1
     {
         const int NUMBER_ITERATIONS = 100;
 
-        List<Waveform> nominalWaves = new List<Waveform>();
-        List<Waveform> earlyWaves = new List<Waveform>();
-        List<Waveform> lateWaves = new List<Waveform>();
-        List<Waveform> experimentalWaves = new List<Waveform>();
+        List<VoltageWaveformAfterRegister> nominalWaves = new List<VoltageWaveformAfterRegister>();
+        List<VoltageWaveformAfterRegister> earlyWaves = new List<VoltageWaveformAfterRegister>();
+        List<VoltageWaveformAfterRegister> lateWaves = new List<VoltageWaveformAfterRegister>();
+        List<VoltageWaveformAfterRegister> experimentalWaves = new List<VoltageWaveformAfterRegister>();
 
         public MachineLearningExampleMainForm()
         {
@@ -60,50 +60,42 @@ namespace MachineLearningExample1
             s.Points.AddXY(10000, 0);
         }
 
-        WaveformClassifier w = new WaveformClassifier(3, Waveform.numberSymbols);
+        WaveformClassifier w = new WaveformClassifier(3, VoltageWaveformAfterRegister.numberSymbols);
 
         private void ButtonGenerateNominal_Click(object sender, EventArgs e)
         {
-
             TraceMessages.AddMessage($"Running {NUMBER_ITERATIONS} trials with no clock skew error.");
             
             Random r = new Random();
 
-            w.ClearWaveforms(0);
-            nominalWaves.Clear();
+            w.ClearWaveforms(0);                                    // Clear classifier object #0
+            nominalWaves.Clear();                                   // This is a list of waveforms we are going to populate
 
             // Create objects with classification 0 (nominal) and train
             for (int n = 1; n <= NUMBER_ITERATIONS; n++)
             {
-                Waveform g = new Waveform(0);
+                VoltageWaveformAfterRegister g = new VoltageWaveformAfterRegister(0);                       // Generate and sample a new waveform
 
-                w.AddNewWaveform(g, 0);
+                w.AddNewWaveform(g, 0);                             // Add the waveform to the classifier histogram as object #0
 
-                // Plot last wavefrom
+                // For NOMINAL ONLY....plot last wavefrom.  It is not necessary to plot every nominal waveform.
                 if (n == NUMBER_ITERATIONS)
                 {
                     g.ClearThenPlotWaveform(plotNominalWaveform);
                     string s = g.SampleAndReturnAsString();
                     TraceMessages.AddMessage($"Pattern = {s}");
-                    nominalWaves.Add(g);
+                    nominalWaves.Add(g);                            // Add the new waveform to the list of nominal waveforms
                 }
 
             }
-            w.ShowAnyClassifier(0, ClassifierNominal);
-            // w.PlotAnyHistogram(0, plotNominalHistogram);
-            w.ShowHistogram(0);
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
+            w.ShowAnyClassifier(0, ClassifierNominal);              // Show information about this classifier 
+            w.ShowHistogram(0);                                     // Show the histogram for this classifier
         }
 
         private void ButtonGenerateTrainErrorSets_Click(object sender, EventArgs e)
         {
-            Waveform SumClass1ForVisualize = new Waveform();
-            Waveform SumClass2ForVisualize = new Waveform();
+            VoltageWaveformAfterRegister SumClass1ForVisualize = new VoltageWaveformAfterRegister();
+            VoltageWaveformAfterRegister SumClass2ForVisualize = new VoltageWaveformAfterRegister();
 
             TraceMessages.AddMessage($"Running {NUMBER_ITERATIONS} trials with negative clock skew error, stddev=50 psec");
 
@@ -115,7 +107,7 @@ namespace MachineLearningExample1
             for (int n = 1; n <= NUMBER_ITERATIONS; n++)
             {
                 double theSkew = -1.0 * r.NextDouble() * 50.0;
-                Waveform g =  new Waveform((int)theSkew);
+                VoltageWaveformAfterRegister g =  new VoltageWaveformAfterRegister((int)theSkew);
                 string s = g.SampleAndReturnAsString();
                 TraceMessages.AddMessage($"Pattern={s}");
                 // Just plot the first 10 to avoid muddling screen
@@ -136,8 +128,8 @@ namespace MachineLearningExample1
             for (int n = 1; n <= NUMBER_ITERATIONS; n++)
             {
                 double theSkew = r.NextDouble() * 50.0;
-                Waveform g =
-                    new Waveform((int)theSkew);
+                VoltageWaveformAfterRegister g =
+                    new VoltageWaveformAfterRegister((int)theSkew);
                 string s = g.SampleAndReturnAsString();
                 TraceMessages.AddMessage($"Pattern={s}");
                 // SumClass2ForVisualize.AddWaveformToSummationForVisualization(g);
@@ -161,21 +153,6 @@ namespace MachineLearningExample1
 
         }
 
-        private void plotSampledWaveform_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void plotExperimentBitstream_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void plotExperimentHistogram_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonExportToMatlab_Click(object sender, EventArgs e)
         {
             exportOne(nominalWaves, "ml_wave_nominal.csv");
@@ -184,7 +161,7 @@ namespace MachineLearningExample1
             exportOne(experimentalWaves, "ml_wave_experiment.csv");
         }
 
-        private void exportOne(List<Waveform> waves, string theFile)
+        private void exportOne(List<VoltageWaveformAfterRegister> waves, string theFile)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(theFile))
             {
@@ -265,7 +242,6 @@ namespace MachineLearningExample1
 
             TraceMessages.AddMessage(s);
         }
-
     }
 
     static public class TraceMessages

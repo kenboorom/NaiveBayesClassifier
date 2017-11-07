@@ -76,7 +76,8 @@
             legend1.Name = "Clock Arrives TOO LATE";
             legend1.TitleAlignment = System.Drawing.StringAlignment.Near;
             this.plotDefect2Bitstream.Legends.Add(legend1);
-            this.plotDefect2Bitstream.Location = new System.Drawing.Point(903, 58);
+            this.plotDefect2Bitstream.Location = new System.Drawing.Point(678, 47);
+            this.plotDefect2Bitstream.Margin = new System.Windows.Forms.Padding(2);
             this.plotDefect2Bitstream.Name = "plotDefect2Bitstream";
             this.tableLayoutPanel1.SetRowSpan(this.plotDefect2Bitstream, 2);
             series3.ChartArea = "ChartArea1";
@@ -85,7 +86,7 @@
             series3.Legend = "Clock Arrives TOO LATE";
             series3.Name = "Series1";
             this.plotDefect2Bitstream.Series.Add(series3);
-            this.plotDefect2Bitstream.Size = new System.Drawing.Size(444, 404);
+            this.plotDefect2Bitstream.Size = new System.Drawing.Size(334, 328);
             this.plotDefect2Bitstream.TabIndex = 11;
             this.plotDefect2Bitstream.Text = "chart1";
             title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -96,17 +97,19 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.buttonExportMatlab);
-            this.panel1.Location = new System.Drawing.Point(1353, 468);
+            this.panel1.Location = new System.Drawing.Point(1016, 379);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(406, 194);
+            this.panel1.Size = new System.Drawing.Size(304, 158);
             this.panel1.TabIndex = 15;
             // 
             // buttonExportMatlab
             // 
             this.buttonExportMatlab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExportMatlab.Location = new System.Drawing.Point(80, 93);
+            this.buttonExportMatlab.Location = new System.Drawing.Point(60, 76);
+            this.buttonExportMatlab.Margin = new System.Windows.Forms.Padding(2);
             this.buttonExportMatlab.Name = "buttonExportMatlab";
-            this.buttonExportMatlab.Size = new System.Drawing.Size(245, 84);
+            this.buttonExportMatlab.Size = new System.Drawing.Size(184, 68);
             this.buttonExportMatlab.TabIndex = 0;
             this.buttonExportMatlab.Text = "Export Training + Experiment to MATLAB";
             this.buttonExportMatlab.UseVisualStyleBackColor = true;
@@ -115,11 +118,12 @@
             // statusBox
             // 
             this.statusBox.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBox.Location = new System.Drawing.Point(1353, 673);
+            this.statusBox.Location = new System.Drawing.Point(1016, 545);
+            this.statusBox.Margin = new System.Windows.Forms.Padding(2);
             this.statusBox.Multiline = true;
             this.statusBox.Name = "statusBox";
             this.statusBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.statusBox.Size = new System.Drawing.Size(437, 193);
+            this.statusBox.Size = new System.Drawing.Size(329, 158);
             this.statusBox.TabIndex = 3;
             // 
             // label1
@@ -128,11 +132,12 @@
             this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(2, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1231, 44);
+            this.label1.Size = new System.Drawing.Size(471, 36);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Machine Learning for Oscilloscopes: Naive Bayes Multinomial Classifer ";
+            this.label1.Text = "Naive Bayes Multinomial Classifer ";
             // 
             // plotDefect1Bitstream
             // 
@@ -146,7 +151,8 @@
             legend3.Name = "Clock Arrives TOO EARLY";
             legend3.TitleAlignment = System.Drawing.StringAlignment.Near;
             this.plotDefect1Bitstream.Legends.Add(legend3);
-            this.plotDefect1Bitstream.Location = new System.Drawing.Point(453, 58);
+            this.plotDefect1Bitstream.Location = new System.Drawing.Point(340, 47);
+            this.plotDefect1Bitstream.Margin = new System.Windows.Forms.Padding(2);
             this.plotDefect1Bitstream.Name = "plotDefect1Bitstream";
             this.tableLayoutPanel1.SetRowSpan(this.plotDefect1Bitstream, 2);
             series2.ChartArea = "ChartArea1";
@@ -155,7 +161,7 @@
             series2.Legend = "Clock Arrives TOO EARLY";
             series2.Name = "Series1";
             this.plotDefect1Bitstream.Series.Add(series2);
-            this.plotDefect1Bitstream.Size = new System.Drawing.Size(444, 404);
+            this.plotDefect1Bitstream.Size = new System.Drawing.Size(334, 328);
             this.plotDefect1Bitstream.TabIndex = 10;
             this.plotDefect1Bitstream.Text = "chart1";
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -167,9 +173,10 @@
             // 
             this.ButtonGenerateNominal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ButtonGenerateNominal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonGenerateNominal.Location = new System.Drawing.Point(96, 878);
+            this.ButtonGenerateNominal.Location = new System.Drawing.Point(72, 711);
+            this.ButtonGenerateNominal.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonGenerateNominal.Name = "ButtonGenerateNominal";
-            this.ButtonGenerateNominal.Size = new System.Drawing.Size(257, 48);
+            this.ButtonGenerateNominal.Size = new System.Drawing.Size(193, 39);
             this.ButtonGenerateNominal.TabIndex = 1;
             this.ButtonGenerateNominal.Text = "Generate Nominal Set";
             this.ButtonGenerateNominal.UseVisualStyleBackColor = true;
@@ -179,9 +186,10 @@
             // 
             this.ButtonGenerateErrorSets.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ButtonGenerateErrorSets.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonGenerateErrorSets.Location = new System.Drawing.Point(507, 878);
+            this.ButtonGenerateErrorSets.Location = new System.Drawing.Point(381, 711);
+            this.ButtonGenerateErrorSets.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonGenerateErrorSets.Name = "ButtonGenerateErrorSets";
-            this.ButtonGenerateErrorSets.Size = new System.Drawing.Size(335, 48);
+            this.ButtonGenerateErrorSets.Size = new System.Drawing.Size(251, 39);
             this.ButtonGenerateErrorSets.TabIndex = 2;
             this.ButtonGenerateErrorSets.Text = "Generate+Train Error Sets";
             this.ButtonGenerateErrorSets.UseVisualStyleBackColor = true;
@@ -198,7 +206,8 @@
             legend2.Name = "Bitstream with No Mfg Defects";
             legend2.TitleAlignment = System.Drawing.StringAlignment.Near;
             this.plotNominalWaveform.Legends.Add(legend2);
-            this.plotNominalWaveform.Location = new System.Drawing.Point(3, 58);
+            this.plotNominalWaveform.Location = new System.Drawing.Point(2, 47);
+            this.plotNominalWaveform.Margin = new System.Windows.Forms.Padding(2);
             this.plotNominalWaveform.Name = "plotNominalWaveform";
             this.tableLayoutPanel1.SetRowSpan(this.plotNominalWaveform, 2);
             series1.ChartArea = "ChartArea1";
@@ -207,7 +216,7 @@
             series1.Legend = "Bitstream with No Mfg Defects";
             series1.Name = "Series1";
             this.plotNominalWaveform.Series.Add(series1);
-            this.plotNominalWaveform.Size = new System.Drawing.Size(404, 394);
+            this.plotNominalWaveform.Size = new System.Drawing.Size(303, 320);
             this.plotNominalWaveform.TabIndex = 4;
             this.plotNominalWaveform.Text = "plotNominalWaveform";
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -240,6 +249,7 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonTrainTestBayes, 2, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
@@ -248,16 +258,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1802, 933);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1352, 758);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // buttonTestBayes
             // 
             this.buttonTestBayes.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTestBayes.Location = new System.Drawing.Point(1353, 878);
+            this.buttonTestBayes.Location = new System.Drawing.Point(1016, 711);
+            this.buttonTestBayes.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTestBayes.Name = "buttonTestBayes";
-            this.buttonTestBayes.Size = new System.Drawing.Size(207, 43);
+            this.buttonTestBayes.Size = new System.Drawing.Size(155, 35);
             this.buttonTestBayes.TabIndex = 1;
             this.buttonTestBayes.Text = "Test Bayes";
             this.buttonTestBayes.UseVisualStyleBackColor = true;
@@ -268,11 +279,12 @@
             this.ClassifierDefect1.BackColor = System.Drawing.SystemColors.Control;
             this.ClassifierDefect1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClassifierDefect1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClassifierDefect1.Location = new System.Drawing.Point(453, 468);
+            this.ClassifierDefect1.Location = new System.Drawing.Point(340, 379);
+            this.ClassifierDefect1.Margin = new System.Windows.Forms.Padding(2);
             this.ClassifierDefect1.Multiline = true;
             this.ClassifierDefect1.Name = "ClassifierDefect1";
             this.tableLayoutPanel1.SetRowSpan(this.ClassifierDefect1, 2);
-            this.ClassifierDefect1.Size = new System.Drawing.Size(444, 404);
+            this.ClassifierDefect1.Size = new System.Drawing.Size(334, 328);
             this.ClassifierDefect1.TabIndex = 16;
             // 
             // ClassifierDefect2
@@ -280,11 +292,12 @@
             this.ClassifierDefect2.BackColor = System.Drawing.SystemColors.Control;
             this.ClassifierDefect2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClassifierDefect2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClassifierDefect2.Location = new System.Drawing.Point(903, 468);
+            this.ClassifierDefect2.Location = new System.Drawing.Point(678, 379);
+            this.ClassifierDefect2.Margin = new System.Windows.Forms.Padding(2);
             this.ClassifierDefect2.Multiline = true;
             this.ClassifierDefect2.Name = "ClassifierDefect2";
             this.tableLayoutPanel1.SetRowSpan(this.ClassifierDefect2, 2);
-            this.ClassifierDefect2.Size = new System.Drawing.Size(444, 404);
+            this.ClassifierDefect2.Size = new System.Drawing.Size(334, 328);
             this.ClassifierDefect2.TabIndex = 17;
             // 
             // ClassifierNominal
@@ -292,31 +305,33 @@
             this.ClassifierNominal.BackColor = System.Drawing.SystemColors.Control;
             this.ClassifierNominal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClassifierNominal.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClassifierNominal.Location = new System.Drawing.Point(3, 468);
+            this.ClassifierNominal.Location = new System.Drawing.Point(2, 379);
+            this.ClassifierNominal.Margin = new System.Windows.Forms.Padding(2);
             this.ClassifierNominal.Multiline = true;
             this.ClassifierNominal.Name = "ClassifierNominal";
             this.tableLayoutPanel1.SetRowSpan(this.ClassifierNominal, 2);
-            this.ClassifierNominal.Size = new System.Drawing.Size(444, 404);
+            this.ClassifierNominal.Size = new System.Drawing.Size(334, 328);
             this.ClassifierNominal.TabIndex = 18;
             // 
             // ClassifierExperiment
             // 
             this.ClassifierExperiment.BackColor = System.Drawing.SystemColors.Control;
             this.ClassifierExperiment.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClassifierExperiment.Location = new System.Drawing.Point(1353, 58);
+            this.ClassifierExperiment.Location = new System.Drawing.Point(1016, 47);
+            this.ClassifierExperiment.Margin = new System.Windows.Forms.Padding(2);
             this.ClassifierExperiment.Multiline = true;
             this.ClassifierExperiment.Name = "ClassifierExperiment";
             this.tableLayoutPanel1.SetRowSpan(this.ClassifierExperiment, 2);
-            this.ClassifierExperiment.Size = new System.Drawing.Size(437, 404);
+            this.ClassifierExperiment.Size = new System.Drawing.Size(329, 328);
             this.ClassifierExperiment.TabIndex = 19;
-            this.ClassifierExperiment.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // buttonTrainTestBayes
             // 
             this.buttonTrainTestBayes.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTrainTestBayes.Location = new System.Drawing.Point(903, 878);
+            this.buttonTrainTestBayes.Location = new System.Drawing.Point(678, 711);
+            this.buttonTrainTestBayes.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTrainTestBayes.Name = "buttonTrainTestBayes";
-            this.buttonTrainTestBayes.Size = new System.Drawing.Size(235, 48);
+            this.buttonTrainTestBayes.Size = new System.Drawing.Size(176, 39);
             this.buttonTrainTestBayes.TabIndex = 20;
             this.buttonTrainTestBayes.Text = "Train Bayes";
             this.buttonTrainTestBayes.UseVisualStyleBackColor = true;
@@ -324,10 +339,11 @@
             // 
             // MachineLearningExampleMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1802, 933);
+            this.ClientSize = new System.Drawing.Size(1352, 758);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MachineLearningExampleMainForm";
             this.Text = "MachineLearningExampleForm";
             ((System.ComponentModel.ISupportInitialize)(this.plotDefect2Bitstream)).EndInit();
